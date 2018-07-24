@@ -1,0 +1,51 @@
+import pandas as pd
+import numpy as np
+from sklearn.cluster import MeanShift
+import matplotlib.pyplot as plt
+from sklearn.cluster import KMeans
+data= pd.read_csv("A.csv",sep=";")
+q=data[["absences","G3"]]
+"""plt.scatter(q["G3"],q["absences"])
+a=[i for i in range(0,21)]
+plt.title("Absences vs Grade point Data")
+plt.xlabel("Grade point")
+plt.ylabel("Absences")
+plt.xticks(a)
+plt.show()
+kmeans=KMeans(n_clusters=3)
+kmeans.fit(q)
+colors=np.array(["Red","Blue","Green"])
+plt.scatter(q["G3"],q["absences"],color=colors[kmeans.labels_])
+plt.title("Absences vs Grade point clusters")
+plt.xlabel("Grade point")
+plt.ylabel("Absences")
+plt.xticks(a,rotation="vertical")
+plt.show()
+plt.scatter(q["absences"],q["G3"],color=colors[kmeans.labels_])
+plt.title("Absences vs Grade point clusters")
+plt.ylabel("Grade point")
+plt.xlabel("Absences")
+plt.yticks(a,rotation="vertical")
+plt.show()"""
+q=q.groupby("absences")["G3"].mean()
+print(q.reset_index())
+q=q.reset_index()
+plt.scatter(q["absences"],q["G3"])
+a=q["absences"].unique()
+plt.title("Absences vs Grade point Data")
+plt.xlabel("Grade point")
+plt.ylabel("Absences")
+plt.xticks(a,rotation="vertical")
+print(q)
+plt.show()
+
+#plt.show()
+kmeans=KMeans(n_clusters=3)
+kmeans.fit(q)
+colors=np.array(["Red","Blue","Green"])
+plt.scatter(q["absences"],q["G3"],color=colors[kmeans.labels_])
+plt.title("Absences vs Grade point clusters")
+plt.xlabel("Grade point")
+plt.ylabel("Absences")
+plt.xticks(a,rotation="vertical")
+plt.show()
